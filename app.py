@@ -1,5 +1,6 @@
 import os
 import csv
+import random
 from flask import Flask, request
 from dotenv import load_dotenv
 from linebot.v3.webhook import WebhookHandler
@@ -25,7 +26,7 @@ messaging_api = MessagingApi(api_client)
 # Set up Flask
 app = Flask(__name__)
 
-# Save LINE user ID if not already saved
+# Save user if new
 def save_user(user_id):
     with open("users.txt", "a+", encoding="utf-8") as f:
         f.seek(0)
@@ -57,38 +58,25 @@ def handle_message(event):
 
         if text == "word":
             try:
-                # Load last non-empty word from sent_words.txt
-                with open("sent_words.txt", "r", encoding="utf-8") as f:
-                    lines = [line.strip().lower() for line in f if line.strip()]
-                    if not lines:
-                        reply_text = "❗No word has been sent yet today."
-                    else:
-                        last_word = lines[-1]
+                # Load all words from CSV
+                with open("words.csv", newline='', encoding='utf-8') as csvfile:
+                    reader = list(csv.DictReader(csvfile))
+                    word_entry = random.choice(reader)
 
-                        # Match it in words.csv
-                        with open("words.csv", newline='', encoding='utf-8') as csvfile:
-                            reader = list(csv.DictReader(csvfile))
-                            match = next((row for row in reader if row["word"].lower() == last_word), None)
-
-                        if match:
-                            reply_text = (
-                                f"📘 Word: {match['word']}\n"
-                                f"🇹🇭 Thai: {match['thai']}\n"
-                                f"🗣️ Phonetic: {match['phonetic']}\n"
-                                f"📖 Example: {match['example_en']}\n"
-                                f"📝 แปล: {match['example_th']}"
-                            )
-                        else:
-                            reply_text = f"⚠️ Word '{last_word}' not found in words.csv."
+                reply_text = (
+                    f"📘 Word: {word_entry['word']}\n"
+                    f"🇹🇭 Thai: {word_entry['thai']}\n"
+                    f"🗣️ Phonetic: {word_entry['phonetic']}\n"
+                    f"📖 Example: {word_entry['example_en']}\n"
+                    f"📝 แปล: {word_entry['example_th']}"
+                )
             except Exception as e:
-                reply_text = f"⚠️ Error loading today's word: {str(e)}"
+                reply_text = f"⚠️ Error: {str(e)}"
         else:
             reply_text = (
-                "👋 Welcome! This bot sends you daily English words.\n"
-                "📩 Send `word` to see today's word again."
+                "👋 Welcome! Send the word `word` to get a random English vocabulary word with Thai translation."
             )
 
-        # Send the reply
         req = ReplyMessageRequest(
             reply_token=event.reply_token,
             messages=[TextMessage(text=reply_text)]
