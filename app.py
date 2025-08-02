@@ -1,5 +1,5 @@
 from flask import Flask, request
-from linebot.v3.webhookhandler import WebHookHandler
+from linebot.v3 import WebHookHandler
 from linebot.v3.messaging import (
     Configuration, ApiClient, MessagingApi, ReplyMessageRequest, TextMessage
 )
