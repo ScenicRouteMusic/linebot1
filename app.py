@@ -1,29 +1,31 @@
 from flask import Flask, request
+from linebot import WebhookHandler  # still top-level, even in v3
 from linebot.v3.messaging import (
     Configuration, ApiClient, MessagingApi, ReplyMessageRequest, TextMessage
 )
 from linebot.v3.webhooks import MessageEvent, TextMessageContent
-from linebot.v3.webhook.handler import WebhookHandler
-from linebot.v3.exceptions import InvalidSignatureError
+from linebot.exceptions import InvalidSignatureError
 from dotenv import load_dotenv
 import os
 
-# Load environment variables from .env
 load_dotenv()
 
+# LINE credentials
 LINE_ACCESS_TOKEN = os.getenv("LINE_ACCESS_TOKEN")
 LINE_CHANNEL_SECRET = os.getenv("LINE_CHANNEL_SECRET")
 
-# Flask app setup
+# Setup Flask
 app = Flask(__name__)
 
-# LINE SDK v3 setup
+# LINE v3 Messaging API
 config = Configuration(access_token=LINE_ACCESS_TOKEN)
 api_client = ApiClient(config)
 messaging_api = MessagingApi(api_client)
+
+# Webhook handler for signature validation
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
-# Save user ID if not already saved
+# Save user IDs
 def save_user(user_id):
     with open("users.txt", "a+") as f:
         f.seek(0)
@@ -31,7 +33,7 @@ def save_user(user_id):
             f.write(user_id + "\n")
 
 @app.route("/")
-def index():
+def home():
     return "LINE Bot is running."
 
 @app.route("/callback", methods=["POST"])
@@ -53,9 +55,8 @@ def handle_message(event):
         save_user(user_id)
 
         reply_text = "Thanks! You'll start getting a daily English word soon."
-
-        req = ReplyMessageRequest(
+        request = ReplyMessageRequest(
             reply_token=event.reply_token,
             messages=[TextMessage(text=reply_text)]
         )
-        messaging_api.reply_message(req)
+        messaging_api.reply_message(request)
