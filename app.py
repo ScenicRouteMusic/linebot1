@@ -39,12 +39,10 @@ def callback():
     return 'OK'
 
 @handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    user_id = event.source.user_id
-    save_user(user_id)
 
-    reply = "Thanks! You'll start getting a daily English word soon."
-    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=reply))
+def handle_message(event):
+    print("Received message:", event.message.text)
+    raise Exception("Debug error")  # intentionally break
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))  # Get port from Render
