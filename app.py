@@ -1,21 +1,28 @@
 from flask import Flask, request
-from linebot import LineBotApi, WebhookHandler
-from linebot.models import MessageEvent, TextMessage, TextSendMessage
+from linebot.v3.messaging import (
+    Configuration, ApiClient, MessagingApi, ReplyMessageRequest, TextMessage
+)
+from linebot.v3.webhooks import WebhookParser, MessageEvent, TextMessageContent
+from linebot.v3.exceptions import InvalidSignatureError
 from dotenv import load_dotenv
 import os
 
-load_dotenv()  # load .env if present
+# Load environment variables from .env
+load_dotenv()
 
-app = Flask(__name__)
-
-# Set environment variables or load from .env
 LINE_ACCESS_TOKEN = os.getenv("LINE_ACCESS_TOKEN")
 LINE_CHANNEL_SECRET = os.getenv("LINE_CHANNEL_SECRET")
 
-line_bot_api = LineBotApi(LINE_ACCESS_TOKEN)
-handler = WebhookHandler(LINE_CHANNEL_SECRET)
+# Initialize Flask app
+app = Flask(__name__)
 
-# User storage (basic)
+# LINE v3 SDK setup
+config = Configuration(access_token=LINE_ACCESS_TOKEN)
+api_client = ApiClient(config)
+messaging_api = MessagingApi(api_client)
+parser = WebhookParser(LINE_CHANNEL_SECRET)
+
+# Save user ID to file (basic implementation)
 def save_user(user_id):
     with open("users.txt", "a+") as f:
         f.seek(0)
@@ -23,28 +30,34 @@ def save_user(user_id):
             f.write(user_id + "\n")
 
 @app.route("/")
-def hello():
+def index():
     return "LINE Bot is running."
 
-@app.route("/callback", methods=['POST'])
+@app.route("/callback", methods=["POST"])
 def callback():
-    signature = request.headers['X-Line-Signature']
+    signature = request.headers.get("X-Line-Signature")
     body = request.get_data(as_text=True)
 
     try:
-        handler.handle(body, signature)
-    except Exception as e:
-        print("Error:", e)
+        events = parser.parse(body, signature)
+    except InvalidSignatureError:
+        return "Invalid signature", 400
 
-    return 'OK'
+    for event in events:
+        if isinstance(event, MessageEvent) and isinstance(event.message, TextMessageContent):
+            user_id = event.source.user_id
+            save_user(user_id)
 
-@handler.add(MessageEvent, message=TextMessage)
+            reply_text = "Thanks! You'll start getting a daily English word soon."
 
-def handle_message(event):
-    print("Received message:", event.message.text)
-    raise Exception("Debug error")  # intentionally break
+            req = ReplyMessageRequest(
+                reply_token=event.reply_token,
+                messages=[TextMessage(text=reply_text)]
+            )
+            messaging_api.reply_message(req)
+
+    return "OK"
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Get port from Render
-    app.run(host='0.0.0.0', port=port)
-
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
