@@ -2,7 +2,8 @@ from flask import Flask, request
 from linebot.v3.messaging import (
     Configuration, ApiClient, MessagingApi, ReplyMessageRequest, TextMessage
 )
-from linebot.v3.webhooks import WebhookParser, MessageEvent, TextMessageContent
+from linebot.v3.webhooks import MessageEvent, TextMessageContent
+from linebot.v3.webhook.handler import WebhookHandler
 from linebot.v3.exceptions import InvalidSignatureError
 from dotenv import load_dotenv
 import os
@@ -13,16 +14,16 @@ load_dotenv()
 LINE_ACCESS_TOKEN = os.getenv("LINE_ACCESS_TOKEN")
 LINE_CHANNEL_SECRET = os.getenv("LINE_CHANNEL_SECRET")
 
-# Initialize Flask app
+# Flask app setup
 app = Flask(__name__)
 
-# LINE v3 SDK setup
+# LINE SDK v3 setup
 config = Configuration(access_token=LINE_ACCESS_TOKEN)
 api_client = ApiClient(config)
 messaging_api = MessagingApi(api_client)
-parser = WebhookParser(LINE_CHANNEL_SECRET)
+handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
-# Save user ID to file (basic implementation)
+# Save user ID if not already saved
 def save_user(user_id):
     with open("users.txt", "a+") as f:
         f.seek(0)
@@ -39,25 +40,22 @@ def callback():
     body = request.get_data(as_text=True)
 
     try:
-        events = parser.parse(body, signature)
+        handler.handle(body, signature)
     except InvalidSignatureError:
         return "Invalid signature", 400
 
-    for event in events:
-        if isinstance(event, MessageEvent) and isinstance(event.message, TextMessageContent):
-            user_id = event.source.user_id
-            save_user(user_id)
-
-            reply_text = "Thanks! You'll start getting a daily English word soon."
-
-            req = ReplyMessageRequest(
-                reply_token=event.reply_token,
-                messages=[TextMessage(text=reply_text)]
-            )
-            messaging_api.reply_message(req)
-
     return "OK"
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+@handler.add(MessageEvent)
+def handle_message(event):
+    if isinstance(event.message, TextMessageContent):
+        user_id = event.source.user_id
+        save_user(user_id)
+
+        reply_text = "Thanks! You'll start getting a daily English word soon."
+
+        req = ReplyMessageRequest(
+            reply_token=event.reply_token,
+            messages=[TextMessage(text=reply_text)]
+        )
+        messaging_api.reply_message(req)
