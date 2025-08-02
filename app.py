@@ -1,5 +1,5 @@
 from flask import Flask, request
-from linebot import WebhookHandler  # still top-level, even in v3
+from linebot.v3.webhookhandler import WebHookHandler
 from linebot.v3.messaging import (
     Configuration, ApiClient, MessagingApi, ReplyMessageRequest, TextMessage
 )
