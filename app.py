@@ -48,6 +48,7 @@ def callback():
     return "OK"
 
 @handler.add(MessageEvent)
+
 def handle_message(event):
     if isinstance(event.message, TextMessageContent):
         user_id = event.source.user_id
@@ -57,21 +58,31 @@ def handle_message(event):
 
         if text == "word":
             try:
-                # Get the last word sent
+                # Load last word from sent_words.txt
                 with open("sent_words.txt", "r", encoding="utf-8") as f:
-                    last_word = f.readlines()[-1].strip().lower()
+                    lines = f.readlines()
+                    if not lines:
+                        reply_text = "No word has been sent yet today."
+                    else:
+                        last_word = lines[-1].strip().lower()
 
-                # Look it up in words.csv
-                with open("words.csv", newline='', encoding="utf-8") as csvfile:
-                    reader = list(csv.DictReader(csvfile))
-                    word_entry = next((row for row in reader if row["word"].lower() == last_word), None)
+                        # Match it in words.csv
+                        with open("words.csv", newline='', encoding='utf-8') as csvfile:
+                            reader = list(csv.DictReader(csvfile))
+                            match = next((row for row in reader if row["word"].lower() == last_word), None)
 
-                if word_entry:
-                    reply_text = f"Word: {word_entry['word']}\nThai: {word_entry['thai']}\nExample: {word_entry['example']}"
-                else:
-                    reply_text = "Could not find today's word in the list."
+                            if match:
+                                reply_text = (
+                                    f"Word: {match['word']}\n"
+                                    f"Thai: {match['thai']}\n"
+                                    f"Phonetic: {match['phonetic']}\n"
+                                    f"Example: {match['example_en']}\n"
+                                    f"แปล: {match['example_th']}"
+                                )
+                            else:
+                                reply_text = f"⚠️ Word '{last_word}' not found in words.csv."
             except Exception as e:
-                reply_text = "⚠️ Error loading today's word."
+                reply_text = f"⚠️ Error loading today's word: {str(e)}"
         else:
             reply_text = "Send 'word' to get today's English word."
 
@@ -80,6 +91,7 @@ def handle_message(event):
             messages=[TextMessage(text=reply_text)]
         )
         messaging_api.reply_message(req)
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
