@@ -1,6 +1,7 @@
 from flask import Flask, request
 from dotenv import load_dotenv
 import os
+import csv
 
 from linebot.v3.exceptions import InvalidSignatureError
 from linebot.v3.webhooks import MessageEvent, TextMessageContent
