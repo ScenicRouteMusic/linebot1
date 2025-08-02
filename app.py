@@ -1,31 +1,30 @@
 from flask import Flask, request
-from linebot.v3 import WebHookHandler
-from linebot.v3.messaging import (
-    Configuration, ApiClient, MessagingApi, ReplyMessageRequest, TextMessage
-)
-from linebot.v3.webhooks import MessageEvent, TextMessageContent
-from linebot.exceptions import InvalidSignatureError
 from dotenv import load_dotenv
 import os
 
+from linebot.v3.exceptions import InvalidSignatureError
+from linebot.v3.webhooks import MessageEvent, TextMessageContent
+from linebot.v3.webhook import WebhookHandler
+from linebot.v3.messaging import (
+    Configuration, ApiClient, MessagingApi,
+    TextMessage, ReplyMessageRequest
+)
+
 load_dotenv()
 
-# LINE credentials
-LINE_ACCESS_TOKEN = os.getenv("LINE_ACCESS_TOKEN")
+# Load LINE credentials from .env
 LINE_CHANNEL_SECRET = os.getenv("LINE_CHANNEL_SECRET")
+LINE_ACCESS_TOKEN = os.getenv("LINE_ACCESS_TOKEN")
 
-# Setup Flask
-app = Flask(__name__)
-
-# LINE v3 Messaging API
+# LINE SDK v3 setup
+handler = WebhookHandler(LINE_CHANNEL_SECRET)
 config = Configuration(access_token=LINE_ACCESS_TOKEN)
-api_client = ApiClient(config)
+api_client = ApiClient(configuration=config)
 messaging_api = MessagingApi(api_client)
 
-# Webhook handler for signature validation
-handler = WebhookHandler(LINE_CHANNEL_SECRET)
+# Flask app setup
+app = Flask(__name__)
 
-# Save user IDs
 def save_user(user_id):
     with open("users.txt", "a+") as f:
         f.seek(0)
@@ -54,9 +53,13 @@ def handle_message(event):
         user_id = event.source.user_id
         save_user(user_id)
 
-        reply_text = "Thanks! You'll start getting a daily English word soon."
-        request = ReplyMessageRequest(
+        reply = "Thanks! You'll start getting a daily English word soon."
+        req = ReplyMessageRequest(
             reply_token=event.reply_token,
-            messages=[TextMessage(text=reply_text)]
+            messages=[TextMessage(text=reply)]
         )
-        messaging_api.reply_message(request)
+        messaging_api.reply_message(req)
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
