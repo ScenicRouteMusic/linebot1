@@ -1,6 +1,101 @@
-word,thai,example
-apple,แอปเปิ้ล,She ate an apple for breakfast.
-beautiful,สวยงาม,The sunset was very beautiful.
-run,วิ่ง,I like to run in the morning.
-book,หนังสือ,I read a good book last night.
-happy,มีความสุข,He feels happy today.
+word,thai,phonetic,example_en,example_th
+apple,แอปเปิ้ล,aepp-eun,I ate an apple.,ฉันกินแอปเปิ้ล
+book,หนังสือ,nǎng-sǔe,She is reading a book.,เธอกำลังอ่านหนังสือ
+car,รถยนต์,rót-yon,He bought a new car.,เขาซื้อรถยนต์ใหม่
+dog,สุนัข,sù-nák,The dog is barking.,สุนัขกำลังเห่า
+eat,กิน,gin,We eat lunch at noon.,พวกเรากินข้าวเที่ยงตอนเที่ยง
+walk,เดิน,dern,I walk to work.,ฉันเดินไปทำงาน
+run,วิ่ง,wîng,He can run very fast.,เขาวิ่งได้เร็วมาก
+water,น้ำ,náam,Drink more water.,ดื่มน้ำให้มากขึ้น
+food,อาหาร,aa-hǎan,Thai food is delicious.,อาหารไทยอร่อย
+house,บ้าน,bâan,Their house is big.,บ้านของพวกเขาใหญ่
+friend,เพื่อน,phûean,My friend is kind.,เพื่อนของฉันใจดี
+school,โรงเรียน,rohng-riian,Children go to school.,เด็กๆไปโรงเรียน
+teacher,ครู,khruu,The teacher is teaching.,ครูกำลังสอน
+phone,โทรศัพท์,thoo-rá-sàp,My phone is broken.,โทรศัพท์ของฉันเสีย
+music,ดนตรี,don-dtrii,I love listening to music.,ฉันชอบฟังดนตรี
+walk,เดิน,dern,I walk to work.,ฉันเดินไปทำงาน
+run,วิ่ง,wîng,He can run very fast.,เขาวิ่งได้เร็วมาก
+water,น้ำ,náam,Drink more water.,ดื่มน้ำให้มากขึ้น
+food,อาหาร,aa-hǎan,Thai food is delicious.,อาหารไทยอร่อย
+house,บ้าน,bâan,Their house is big.,บ้านของพวกเขาใหญ่
+friend,เพื่อน,phûean,My friend is kind.,เพื่อนของฉันใจดี
+school,โรงเรียน,rohng-riian,Children go to school.,เด็กๆไปโรงเรียน
+teacher,ครู,khruu,The teacher is teaching.,ครูกำลังสอน
+phone,โทรศัพท์,thoo-rá-sàp,My phone is broken.,โทรศัพท์ของฉันเสีย
+music,ดนตรี,don-dtrii,I love listening to music.,ฉันชอบฟังดนตรี
+walk,เดิน,dern,I walk to work.,ฉันเดินไปทำงาน
+run,วิ่ง,wîng,He can run very fast.,เขาวิ่งได้เร็วมาก
+water,น้ำ,náam,Drink more water.,ดื่มน้ำให้มากขึ้น
+food,อาหาร,aa-hǎan,Thai food is delicious.,อาหารไทยอร่อย
+house,บ้าน,bâan,Their house is big.,บ้านของพวกเขาใหญ่
+friend,เพื่อน,phûean,My friend is kind.,เพื่อนของฉันใจดี
+school,โรงเรียน,rohng-riian,Children go to school.,เด็กๆไปโรงเรียน
+teacher,ครู,khruu,The teacher is teaching.,ครูกำลังสอน
+phone,โทรศัพท์,thoo-rá-sàp,My phone is broken.,โทรศัพท์ของฉันเสีย
+music,ดนตรี,don-dtrii,I love listening to music.,ฉันชอบฟังดนตรี
+walk,เดิน,dern,I walk to work.,ฉันเดินไปทำงาน
+run,วิ่ง,wîng,He can run very fast.,เขาวิ่งได้เร็วมาก
+water,น้ำ,náam,Drink more water.,ดื่มน้ำให้มากขึ้น
+food,อาหาร,aa-hǎan,Thai food is delicious.,อาหารไทยอร่อย
+house,บ้าน,bâan,Their house is big.,บ้านของพวกเขาใหญ่
+friend,เพื่อน,phûean,My friend is kind.,เพื่อนของฉันใจดี
+school,โรงเรียน,rohng-riian,Children go to school.,เด็กๆไปโรงเรียน
+teacher,ครู,khruu,The teacher is teaching.,ครูกำลังสอน
+phone,โทรศัพท์,thoo-rá-sàp,My phone is broken.,โทรศัพท์ของฉันเสีย
+music,ดนตรี,don-dtrii,I love listening to music.,ฉันชอบฟังดนตรี
+walk,เดิน,dern,I walk to work.,ฉันเดินไปทำงาน
+run,วิ่ง,wîng,He can run very fast.,เขาวิ่งได้เร็วมาก
+water,น้ำ,náam,Drink more water.,ดื่มน้ำให้มากขึ้น
+food,อาหาร,aa-hǎan,Thai food is delicious.,อาหารไทยอร่อย
+house,บ้าน,bâan,Their house is big.,บ้านของพวกเขาใหญ่
+friend,เพื่อน,phûean,My friend is kind.,เพื่อนของฉันใจดี
+school,โรงเรียน,rohng-riian,Children go to school.,เด็กๆไปโรงเรียน
+teacher,ครู,khruu,The teacher is teaching.,ครูกำลังสอน
+phone,โทรศัพท์,thoo-rá-sàp,My phone is broken.,โทรศัพท์ของฉันเสีย
+music,ดนตรี,don-dtrii,I love listening to music.,ฉันชอบฟังดนตรี
+walk,เดิน,dern,I walk to work.,ฉันเดินไปทำงาน
+run,วิ่ง,wîng,He can run very fast.,เขาวิ่งได้เร็วมาก
+water,น้ำ,náam,Drink more water.,ดื่มน้ำให้มากขึ้น
+food,อาหาร,aa-hǎan,Thai food is delicious.,อาหารไทยอร่อย
+house,บ้าน,bâan,Their house is big.,บ้านของพวกเขาใหญ่
+friend,เพื่อน,phûean,My friend is kind.,เพื่อนของฉันใจดี
+school,โรงเรียน,rohng-riian,Children go to school.,เด็กๆไปโรงเรียน
+teacher,ครู,khruu,The teacher is teaching.,ครูกำลังสอน
+phone,โทรศัพท์,thoo-rá-sàp,My phone is broken.,โทรศัพท์ของฉันเสีย
+music,ดนตรี,don-dtrii,I love listening to music.,ฉันชอบฟังดนตรี
+walk,เดิน,dern,I walk to work.,ฉันเดินไปทำงาน
+run,วิ่ง,wîng,He can run very fast.,เขาวิ่งได้เร็วมาก
+water,น้ำ,náam,Drink more water.,ดื่มน้ำให้มากขึ้น
+food,อาหาร,aa-hǎan,Thai food is delicious.,อาหารไทยอร่อย
+house,บ้าน,bâan,Their house is big.,บ้านของพวกเขาใหญ่
+friend,เพื่อน,phûean,My friend is kind.,เพื่อนของฉันใจดี
+school,โรงเรียน,rohng-riian,Children go to school.,เด็กๆไปโรงเรียน
+teacher,ครู,khruu,The teacher is teaching.,ครูกำลังสอน
+phone,โทรศัพท์,thoo-rá-sàp,My phone is broken.,โทรศัพท์ของฉันเสีย
+music,ดนตรี,don-dtrii,I love listening to music.,ฉันชอบฟังดนตรี
+walk,เดิน,dern,I walk to work.,ฉันเดินไปทำงาน
+run,วิ่ง,wîng,He can run very fast.,เขาวิ่งได้เร็วมาก
+water,น้ำ,náam,Drink more water.,ดื่มน้ำให้มากขึ้น
+food,อาหาร,aa-hǎan,Thai food is delicious.,อาหารไทยอร่อย
+house,บ้าน,bâan,Their house is big.,บ้านของพวกเขาใหญ่
+friend,เพื่อน,phûean,My friend is kind.,เพื่อนของฉันใจดี
+school,โรงเรียน,rohng-riian,Children go to school.,เด็กๆไปโรงเรียน
+teacher,ครู,khruu,The teacher is teaching.,ครูกำลังสอน
+phone,โทรศัพท์,thoo-rá-sàp,My phone is broken.,โทรศัพท์ของฉันเสีย
+music,ดนตรี,don-dtrii,I love listening to music.,ฉันชอบฟังดนตรี
+walk,เดิน,dern,I walk to work.,ฉันเดินไปทำงาน
+run,วิ่ง,wîng,He can run very fast.,เขาวิ่งได้เร็วมาก
+water,น้ำ,náam,Drink more water.,ดื่มน้ำให้มากขึ้น
+food,อาหาร,aa-hǎan,Thai food is delicious.,อาหารไทยอร่อย
+house,บ้าน,bâan,Their house is big.,บ้านของพวกเขาใหญ่
+friend,เพื่อน,phûean,My friend is kind.,เพื่อนของฉันใจดี
+school,โรงเรียน,rohng-riian,Children go to school.,เด็กๆไปโรงเรียน
+teacher,ครู,khruu,The teacher is teaching.,ครูกำลังสอน
+phone,โทรศัพท์,thoo-rá-sàp,My phone is broken.,โทรศัพท์ของฉันเสีย
+music,ดนตรี,don-dtrii,I love listening to music.,ฉันชอบฟังดนตรี
+walk,เดิน,dern,I walk to work.,ฉันเดินไปทำงาน
+run,วิ่ง,wîng,He can run very fast.,เขาวิ่งได้เร็วมาก
+water,น้ำ,náam,Drink more water.,ดื่มน้ำให้มากขึ้น
+food,อาหาร,aa-hǎan,Thai food is delicious.,อาหารไทยอร่อย
+house,บ้าน,bâan,Their house is big.,บ้านของพวกเขาใหญ่
