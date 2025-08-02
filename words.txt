@@ -1,0 +1,6 @@
+word,thai,example
+apple,แอปเปิ้ล,She ate an apple for breakfast.
+beautiful,สวยงาม,The sunset was very beautiful.
+run,วิ่ง,I like to run in the morning.
+book,หนังสือ,I read a good book last night.
+happy,มีความสุข,He feels happy today.
